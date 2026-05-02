@@ -103,7 +103,7 @@ export type Database = {
           is_published: boolean
           price_bdt: number
           product_type: string
-          seller_id: string
+          seller_id: string | null
           short_description: string | null
           title: string
           updated_at: string
@@ -122,7 +122,7 @@ export type Database = {
           is_published?: boolean
           price_bdt?: number
           product_type?: string
-          seller_id: string
+          seller_id?: string | null
           short_description?: string | null
           title: string
           updated_at?: string
@@ -141,7 +141,7 @@ export type Database = {
           is_published?: boolean
           price_bdt?: number
           product_type?: string
-          seller_id?: string
+          seller_id?: string | null
           short_description?: string | null
           title?: string
           updated_at?: string
