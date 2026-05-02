@@ -45,7 +45,10 @@ const Dashboard = () => {
     if (!parsed.success) { toast.error(parsed.error.errors[0].message); return; }
     setSubmitting(true);
     const { data, error } = await supabase.from("products").insert({
-      ...parsed.data,
+      title: parsed.data.title,
+      description: parsed.data.description,
+      price_bdt: parsed.data.price_bdt,
+      category: parsed.data.category,
       seller_id: user.id,
       image_url: form.image_url || null,
     }).select().single();
