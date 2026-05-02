@@ -14,12 +14,37 @@ export type Database = {
   }
   public: {
     Tables: {
+      newsletter_subscribers: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+        }
+        Relationships: []
+      }
       orders: {
         Row: {
           amount_bdt: number
           buyer_id: string
           created_at: string
+          customer_email: string | null
+          customer_name: string | null
+          customer_phone: string | null
           id: string
+          notes: string | null
+          order_number: string | null
+          payment_method: string | null
+          payment_reference: string | null
           product_id: string
           status: string
         }
@@ -27,7 +52,14 @@ export type Database = {
           amount_bdt: number
           buyer_id: string
           created_at?: string
+          customer_email?: string | null
+          customer_name?: string | null
+          customer_phone?: string | null
           id?: string
+          notes?: string | null
+          order_number?: string | null
+          payment_method?: string | null
+          payment_reference?: string | null
           product_id: string
           status?: string
         }
@@ -35,7 +67,14 @@ export type Database = {
           amount_bdt?: number
           buyer_id?: string
           created_at?: string
+          customer_email?: string | null
+          customer_name?: string | null
+          customer_phone?: string | null
           id?: string
+          notes?: string | null
+          order_number?: string | null
+          payment_method?: string | null
+          payment_reference?: string | null
           product_id?: string
           status?: string
         }
@@ -51,38 +90,59 @@ export type Database = {
       }
       products: {
         Row: {
+          billing_interval: string | null
           category: string
+          course_url: string | null
           created_at: string
           description: string | null
+          download_url: string | null
+          gallery: Json
           id: string
           image_url: string | null
+          is_featured: boolean
           is_published: boolean
           price_bdt: number
+          product_type: string
           seller_id: string
+          short_description: string | null
           title: string
           updated_at: string
         }
         Insert: {
+          billing_interval?: string | null
           category?: string
+          course_url?: string | null
           created_at?: string
           description?: string | null
+          download_url?: string | null
+          gallery?: Json
           id?: string
           image_url?: string | null
+          is_featured?: boolean
           is_published?: boolean
           price_bdt?: number
+          product_type?: string
           seller_id: string
+          short_description?: string | null
           title: string
           updated_at?: string
         }
         Update: {
+          billing_interval?: string | null
           category?: string
+          course_url?: string | null
           created_at?: string
           description?: string | null
+          download_url?: string | null
+          gallery?: Json
           id?: string
           image_url?: string | null
+          is_featured?: boolean
           is_published?: boolean
           price_bdt?: number
+          product_type?: string
           seller_id?: string
+          short_description?: string | null
           title?: string
           updated_at?: string
         }
@@ -111,6 +171,50 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      subscriptions: {
+        Row: {
+          amount_bdt: number
+          billing_interval: string
+          created_at: string
+          current_period_end: string | null
+          id: string
+          product_id: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount_bdt: number
+          billing_interval?: string
+          created_at?: string
+          current_period_end?: string | null
+          id?: string
+          product_id: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount_bdt?: number
+          billing_interval?: string
+          created_at?: string
+          current_period_end?: string | null
+          id?: string
+          product_id?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subscriptions_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
