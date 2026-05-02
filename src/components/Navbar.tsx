@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { useState } from "react";
 
 export const Navbar = () => {
-  const { user } = useAuth();
+  const { user, isAdmin } = useAuth();
   const { count } = useCart();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -53,6 +53,11 @@ export const Navbar = () => {
 
           {user ? (
             <>
+              {isAdmin && (
+                <Button variant="accent" size="sm" asChild className="hidden sm:inline-flex">
+                  <Link to="/admin">Admin</Link>
+                </Button>
+              )}
               <Button variant="ghost" size="sm" asChild className="hidden sm:inline-flex">
                 <Link to="/dashboard"><UserIcon className="h-4 w-4" /> Dashboard</Link>
               </Button>
